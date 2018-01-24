@@ -16,7 +16,7 @@ namespace Fusion_fichiers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FormAccueil());
         }
     }
 }
