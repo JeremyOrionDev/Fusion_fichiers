@@ -421,7 +421,7 @@ namespace Fusion_fichiers
         }
 
         /// <summary>
-        /// Ecrits the fichiers.
+        /// Procédure de creation et d'écriture du fichier final.
         /// </summary>
         /// <param name="lesFichiers">les fichiers à assembler.</param>
         /// <param name="nb">la quantité de fichier (pour contrôle).</param>
@@ -430,7 +430,9 @@ namespace Fusion_fichiers
         /// <returns>Vrai ou faux en fonction de la réussite de l'écriture du fichier</returns>
         bool EcritFichiers(string lesFichiers,int nb,string folder,string nom)
         {
+            //Récupération des noms de fichiers
             string[] noms = lesFichiers.Split(';');
+            //Contrôle du nombre de fichier
             if (noms.Count()!=nb)
             {
                 MessageBox.Show("Erreur de quantité de fichiers importés","Erreur d'importation",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -438,9 +440,16 @@ namespace Fusion_fichiers
             }
             else
             {
+                //récupération de l'extension du fichier
                 string ext = noms[0].Substring(noms[0].Length - 4);
+
+                //Appel du StreamWriter qui va écrire le fichier
                 StreamWriter SW = new StreamWriter(folder+"\\"+nom+ext, true);
+
+                //déclaration et attribution du tableau de chaines final avec le nombre de lignes total
                 string[] output = new string[ligneFichierFinal];
+
+                //Boucle de remplissage
                 foreach (string item in noms)
                 {
                     string adress = folder + "\\" + item ;
@@ -458,7 +467,14 @@ namespace Fusion_fichiers
             }
         }
 
-
+        /// <summary>
+        /// Méthode Lists all files appelée lors de la sélection du dossier.
+        /// elle va lister tous les fichier dont l'extension correspond
+        /// </summary>
+        /// <param name="allFiles">collection de chaine des différents fichiers.</param>
+        /// <param name="path">dossier à parcourir.</param>
+        /// <param name="scanDirOk">booléen de scan des sous-dossier.</param>
+        /// <returns></returns>
         public static StringCollection ListAllFiles(StringCollection allFiles, string path, bool scanDirOk)
         {
             // listFilesCurrDir : Tableau contenant  la liste des fichiers du dossier 'path'
@@ -501,6 +517,12 @@ namespace Fusion_fichiers
             return allFiles;
         }
 
+        /// <summary>
+        /// Méthode de comptage des lignes contenues dans le fichier
+        /// et déduit les lignes vides
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns></returns>
         int LineCount(string filePath)
         {
             StringCollection collection = new StringCollection();
